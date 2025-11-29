@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horarios - VitalPet</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo">
+                <span class="logo-icon">🐾</span>
+                <span class="logo-text">VitalPet</span>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item">
+                    <span class="nav-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="citas.html" class="nav-item">
+                    <span class="nav-icon">📅</span>
+                    <span>Citas</span>
+                </a>
+                <a href="clientes.html" class="nav-item">
+                    <span class="nav-icon">👥</span>
+                    <span>Clientes</span>
+                </a>
+                <a href="historial.html" class="nav-item">
+                    <span class="nav-icon">📋</span>
+                    <span>Historial</span>
+                </a>
+                <a href="horarios.html" class="nav-item active">
+                    <span class="nav-icon">🕐</span>
+                    <span>Horarios</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header">
+                <h1>Administrar Horarios</h1>
+                <button class="btn-primary" onclick="saveHorarios()">
+                    <span>💾</span> Guardar Cambios
+                </button>
+            </header>
+
+            <!-- Schedule Configuration -->
+            <section class="schedule-config">
+                <div class="config-card">
+                    <h3>Configuración General</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="duracionCita">Duración de cita (minutos):</label>
+                            <select id="duracionCita">
+                                <option value="15">15 minutos</option>
+                                <option value="30" selected>30 minutos</option>
+                                <option value="45">45 minutos</option>
+                                <option value="60">60 minutos</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="maxCitasDia">Máximo de citas por día:</label>
+                            <input type="number" id="maxCitasDia" min="1" max="50" value="20">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="config-card">
+                    <h3>Horarios por Día</h3>
+                    <div class="schedule-grid" id="scheduleGrid">
+                        <!-- Dynamic content -->
+                    </div>
+                </div>
+
+                <div class="config-card">
+                    <h3>Días Festivos / No Laborables</h3>
+                    <div class="holidays-section">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="holidayDate">Agregar fecha:</label>
+                                <input type="date" id="holidayDate">
+                            </div>
+                            <div class="form-group">
+                                <label for="holidayReason">Motivo:</label>
+                                <input type="text" id="holidayReason" placeholder="Ej: Día festivo">
+                            </div>
+                            <button class="btn-primary" onclick="addHoliday()">Agregar</button>
+                        </div>
+                        <div class="holidays-list" id="holidaysList">
+                            <!-- Dynamic content -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Weekly View -->
+            <section class="weekly-view">
+                <h2>Vista Semanal de Disponibilidad</h2>
+                <div class="week-navigation">
+                    <button class="btn-secondary" onclick="previousWeek()">← Semana Anterior</button>
+                    <span id="weekLabel">Semana actual</span>
+                    <button class="btn-secondary" onclick="nextWeek()">Semana Siguiente →</button>
+                </div>
+                <div class="week-grid" id="weekGrid">
+                    <!-- Dynamic content -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/horarios.js"></script>
+</body>
+</html>

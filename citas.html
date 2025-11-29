@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citas - VitalPet</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo">
+                <span class="logo-icon">🐾</span>
+                <span class="logo-text">VitalPet</span>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item">
+                    <span class="nav-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="citas.html" class="nav-item active">
+                    <span class="nav-icon">📅</span>
+                    <span>Citas</span>
+                </a>
+                <a href="clientes.html" class="nav-item">
+                    <span class="nav-icon">👥</span>
+                    <span>Clientes</span>
+                </a>
+                <a href="historial.html" class="nav-item">
+                    <span class="nav-icon">📋</span>
+                    <span>Historial</span>
+                </a>
+                <a href="horarios.html" class="nav-item">
+                    <span class="nav-icon">🕐</span>
+                    <span>Horarios</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header">
+                <h1>Gestión de Citas</h1>
+                <div class="header-actions">
+                    <button class="btn-primary" onclick="openModal('citaModal')">
+                        <span>➕</span> Nueva Cita
+                    </button>
+                    <button id="clearNonPendingBtn" class="btn-danger" onclick="clearNonPendingCitas()">
+                        🗑️ Eliminar citas
+                    </button>
+                </div>
+            </header>
+
+            <!-- Filters -->
+            <section class="filters">
+                <div class="filter-group">
+                    <label>Filtrar por fecha:</label>
+                    <input type="date" id="filterDate" onchange="filterCitas()">
+                </div>
+                <div class="filter-group">
+                    <label>Estado:</label>
+                    <select id="filterStatus" onchange="filterCitas()">
+                        <option value="">Todos</option>
+                        <option value="pendiente">Pendiente</option>
+                        <option value="completada">Completada</option>
+                        <option value="cancelada">Cancelada</option>
+                        <option value="aplazada">Aplazada</option>
+                    </select>
+                </div>
+                <button class="btn-secondary" onclick="clearFilters()">Limpiar Filtros</button>
+            </section>
+
+            <!-- Appointments Table -->
+            <section class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Hora</th>
+                            <th>Cliente</th>
+                            <th>Mascota</th>
+                            <th>Motivo</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="citasTableBody">
+                        <!-- Dynamic content -->
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal Nueva/Editar Cita -->
+    <div class="modal" id="citaModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Nueva Cita</h2>
+                <button class="close-btn" onclick="closeModal('citaModal')">&times;</button>
+            </div>
+            <form id="citaForm" onsubmit="saveCita(event)">
+                <input type="hidden" id="citaId">
+                <div class="form-group">
+                    <label for="clienteSelect">Cliente:</label>
+                    <select id="clienteSelect" required onchange="loadMascotasCliente()">
+                        <option value="">Seleccionar cliente...</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="mascotaSelect">Mascota:</label>
+                    <select id="mascotaSelect" required>
+                        <option value="">Seleccionar mascota...</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="citaFecha">Fecha:</label>
+                        <input type="date" id="citaFecha" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="citaHora">Hora:</label>
+                        <select id="citaHora" required>
+                            <option value="">Seleccionar hora...</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="citaMotivo">Motivo de la consulta:</label>
+                    <textarea id="citaMotivo" rows="3" required placeholder="Describe el motivo de la cita..."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeModal('citaModal')">Cancelar</button>
+                    <button type="submit" class="btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Aplazar Cita -->
+    <div class="modal" id="aplazarModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Aplazar Cita</h2>
+                <button class="close-btn" onclick="closeModal('aplazarModal')">&times;</button>
+            </div>
+            <form id="aplazarForm" onsubmit="aplazarCita(event)">
+                <input type="hidden" id="aplazarCitaId">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nuevaFecha">Nueva Fecha:</label>
+                        <input type="date" id="nuevaFecha" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nuevaHora">Nueva Hora:</label>
+                        <select id="nuevaHora" required>
+                            <option value="">Seleccionar hora...</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="motivoAplazamiento">Motivo del aplazamiento:</label>
+                    <textarea id="motivoAplazamiento" rows="2" placeholder="Opcional..."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeModal('aplazarModal')">Cancelar</button>
+                    <button type="submit" class="btn-primary">Aplazar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/citas.js"></script>
+</body>
+</html>

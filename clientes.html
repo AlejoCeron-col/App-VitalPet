@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clientes - VitalPet</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo">
+                <span class="logo-icon">🐾</span>
+                <span class="logo-text">VitalPet</span>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item">
+                    <span class="nav-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="citas.html" class="nav-item">
+                    <span class="nav-icon">📅</span>
+                    <span>Citas</span>
+                </a>
+                <a href="clientes.html" class="nav-item active">
+                    <span class="nav-icon">👥</span>
+                    <span>Clientes</span>
+                </a>
+                <a href="historial.html" class="nav-item">
+                    <span class="nav-icon">📋</span>
+                    <span>Historial</span>
+                </a>
+                <a href="horarios.html" class="nav-item">
+                    <span class="nav-icon">🕐</span>
+                    <span>Horarios</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header">
+                <h1>Gestión de Clientes</h1>
+                <button class="btn-primary" onclick="openModal('clienteModal')">
+                    <span>➕</span> Nuevo Cliente
+                </button>
+            </header>
+
+            <!-- Search -->
+            <section class="search-section">
+                <div class="search-box">
+                    <input type="text" id="searchCliente" placeholder="Buscar por nombre, teléfono o email..." onkeyup="searchClientes()">
+                    <span class="search-icon">🔍</span>
+                </div>
+            </section>
+
+            <!-- Clients Grid -->
+            <section class="clients-grid" id="clientesGrid">
+                <!-- Dynamic content -->
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal Nuevo/Editar Cliente -->
+    <div class="modal" id="clienteModal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2 id="clienteModalTitle">Nuevo Cliente</h2>
+                <button class="close-btn" onclick="closeModal('clienteModal')">&times;</button>
+            </div>
+            <!-- Updated onsubmit to use saveClienteForm -->
+            <form id="clienteForm" onsubmit="saveClienteForm(event)">
+                <input type="hidden" id="clienteId">
+                <div class="form-section">
+                    <h3>Datos del Cliente</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="clienteNombre">Nombre completo:</label>
+                            <input type="text" id="clienteNombre" required placeholder="Ej: Juan Pérez">
+                        </div>
+                        <div class="form-group">
+                            <label for="clienteTelefono">Teléfono:</label>
+                            <input type="tel" id="clienteTelefono" required placeholder="Ej: 555-123-4567">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="clienteEmail">Email:</label>
+                            <input type="email" id="clienteEmail" placeholder="Ej: cliente@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="clienteDireccion">Dirección:</label>
+                            <input type="text" id="clienteDireccion" placeholder="Ej: Calle Principal #123">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeModal('clienteModal')">Cancelar</button>
+                    <button type="submit" class="btn-primary">Guardar Cliente</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Nueva/Editar Mascota -->
+    <div class="modal" id="mascotaModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="mascotaModalTitle">Nueva Mascota</h2>
+                <button class="close-btn" onclick="closeModal('mascotaModal')">&times;</button>
+            </div>
+            <!-- Updated onsubmit to use saveMascotaForm -->
+            <form id="mascotaForm" onsubmit="saveMascotaForm(event)">
+                <input type="hidden" id="mascotaId">
+                <input type="hidden" id="mascotaClienteId">
+                <div class="form-group">
+                    <label for="mascotaNombre">Nombre:</label>
+                    <input type="text" id="mascotaNombre" required placeholder="Ej: Max">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="mascotaEspecie">Especie:</label>
+                        <select id="mascotaEspecie" required>
+                            <option value="">Seleccionar...</option>
+                            <option value="perro">Perro</option>
+                            <option value="gato">Gato</option>
+                            <option value="ave">Ave</option>
+                            <option value="roedor">Roedor</option>
+                            <option value="reptil">Reptil</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="mascotaRaza">Raza:</label>
+                        <input type="text" id="mascotaRaza" placeholder="Ej: Labrador">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="mascotaEdad">Edad (años):</label>
+                        <input type="number" id="mascotaEdad" min="0" max="50" placeholder="Ej: 3">
+                    </div>
+                    <div class="form-group">
+                        <label for="mascotaPeso">Peso (kg):</label>
+                        <input type="number" id="mascotaPeso" step="0.1" min="0" placeholder="Ej: 25.5">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="mascotaNotas">Notas adicionales:</label>
+                    <textarea id="mascotaNotas" rows="2" placeholder="Alergias, condiciones especiales, etc."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeModal('mascotaModal')">Cancelar</button>
+                    <button type="submit" class="btn-primary">Guardar Mascota</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Ver Cliente -->
+    <div class="modal" id="verClienteModal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2>Detalles del Cliente</h2>
+                <button class="close-btn" onclick="closeModal('verClienteModal')">&times;</button>
+            </div>
+            <div class="client-details" id="clienteDetails">
+                <!-- Dynamic content -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/clientes.js"></script>
+</body>
+</html>

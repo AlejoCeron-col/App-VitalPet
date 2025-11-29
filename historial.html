@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial - VitalPet</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo">
+                <span class="logo-icon">🐾</span>
+                <span class="logo-text">VitalPet</span>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item">
+                    <span class="nav-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="citas.html" class="nav-item">
+                    <span class="nav-icon">📅</span>
+                    <span>Citas</span>
+                </a>
+                <a href="clientes.html" class="nav-item">
+                    <span class="nav-icon">👥</span>
+                    <span>Clientes</span>
+                </a>
+                <a href="historial.html" class="nav-item active">
+                    <span class="nav-icon">📋</span>
+                    <span>Historial</span>
+                </a>
+                <a href="horarios.html" class="nav-item">
+                    <span class="nav-icon">🕐</span>
+                    <span>Horarios</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header">
+                <h1>Historial de Visitas</h1>
+            </header>
+
+            <!-- Search and Filters -->
+            <section class="filters">
+                <div class="filter-group">
+                    <label>Buscar mascota:</label>
+                    <select id="mascotaFilter" onchange="filterHistorial()">
+                        <option value="">Todas las mascotas</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Desde:</label>
+                    <input type="date" id="fechaDesde" onchange="filterHistorial()">
+                </div>
+                <div class="filter-group">
+                    <label>Hasta:</label>
+                    <input type="date" id="fechaHasta" onchange="filterHistorial()">
+                </div>
+                <button class="btn-secondary" onclick="clearHistorialFilters()">Limpiar</button>
+            </section>
+
+            <!-- History Timeline -->
+            <section class="history-container">
+                <div class="timeline" id="historialTimeline">
+                    <!-- Dynamic content -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal Detalles de Visita -->
+    <div class="modal" id="visitaModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Detalles de la Visita</h2>
+                <button class="close-btn" onclick="closeModal('visitaModal')">&times;</button>
+            </div>
+            <div class="visita-details" id="visitaDetails">
+                <!-- Dynamic content -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/historial.js"></script>
+</body>
+</html>

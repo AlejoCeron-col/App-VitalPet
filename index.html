@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitalPet - Sistema de Gestión Veterinaria</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo">
+                <span class="logo-icon">🐾</span>
+                <span class="logo-text">VitalPet</span>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item active">
+                    <span class="nav-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="citas.html" class="nav-item">
+                    <span class="nav-icon">📅</span>
+                    <span>Citas</span>
+                </a>
+                <a href="clientes.html" class="nav-item">
+                    <span class="nav-icon">👥</span>
+                    <span>Clientes</span>
+                </a>
+                <a href="historial.html" class="nav-item">
+                    <span class="nav-icon">📋</span>
+                    <span>Historial</span>
+                </a>
+                <a href="horarios.html" class="nav-item">
+                    <span class="nav-icon">🕐</span>
+                    <span>Horarios</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header">
+                <h1>Dashboard</h1>
+                <div class="header-info">
+                    <span class="date" id="currentDate"></span>
+                </div>
+            </header>
+
+            <!-- Stats Cards -->
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon blue">📅</div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="citasHoy">0</span>
+                        <span class="stat-label">Citas Hoy</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon green">👥</div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="totalClientes">0</span>
+                        <span class="stat-label">Total Clientes</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon purple">🐕</div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="totalMascotas">0</span>
+                        <span class="stat-label">Mascotas Registradas</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon orange">⏳</div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="citasPendientes">0</span>
+                        <span class="stat-label">Citas Pendientes</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Actions -->
+            <section class="quick-actions">
+                <h2>Acciones Rápidas</h2>
+                <div class="actions-grid">
+                    <a href="citas.html" class="action-card">
+                        <span class="action-icon">➕</span>
+                        <span>Nueva Cita</span>
+                    </a>
+                    <a href="clientes.html" class="action-card">
+                        <span class="action-icon">👤</span>
+                        <span>Nuevo Cliente</span>
+                    </a>
+                    <a href="historial.html" class="action-card">
+                        <span class="action-icon">🔍</span>
+                        <span>Buscar Historial</span>
+                    </a>
+                    <a href="horarios.html" class="action-card">
+                        <span class="action-icon">⚙️</span>
+                        <span>Configurar Horarios</span>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Today's Appointments -->
+            <section class="today-appointments">
+                <h2>Citas de Hoy</h2>
+                <div class="appointments-list" id="citasHoyList">
+                    <p class="empty-message">No hay citas programadas para hoy</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
