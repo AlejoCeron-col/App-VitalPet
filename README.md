@@ -140,7 +140,7 @@ Requisitos: `Node.js` y `npm`.
 1. Abrir consola y posicionarse en la carpeta del servidor:
 
 ```powershell
-cd 'C:\Users\AudaCeron\Desktop\veterinary-appointment-app (7)\server'
+cd 'C:\ruta\al\proyecto\server'
 npm install
 ```
 
