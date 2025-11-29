@@ -10,10 +10,6 @@ Resumen: aplicación para gestionar clientes, mascotas y citas en una clínica v
 - Base de datos: `SQLite` mediante el paquete `sqlite3`.
 - Frontend: HTML estático, `styles.css` y JavaScript (vanilla) dentro de la carpeta `js/` que consume la API REST con `fetch`.
 
-Scripts útiles en `server/`:
-- `migrate_from_json.js` — migra datos desde tablas antiguas que guardaban JSON en `data` hacia tablas normalizadas.
-- `drop_old_tables.js` — elimina tablas antiguas (destructivo).
-
 ---
 ## Requisitos
 
