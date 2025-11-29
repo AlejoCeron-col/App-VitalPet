@@ -32,7 +32,7 @@ server/    # backend (server.js, package.json, database.db)
 
 ---
 
-## Esquema de la base de datos (normalizado)
+## Esquema de la base de datos
 
 Tablas principales:
 
